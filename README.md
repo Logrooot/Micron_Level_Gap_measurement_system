@@ -1,6 +1,4 @@
 # Micron_Level_Gap_measurement_system
-# 🔧 Weld Gap Measurement System
-
 ##  Features
 
  **Image Input Options**
