@@ -579,7 +579,6 @@ class ImprovedGapDetector:
       if hasattr(self, "visualized_image"):
         cv2.imwrite(output_path, self.visualized_image)
 
-
     def create_zoomed_view(self, vis_image, gap_coordinates, positions, measurements):
         """Create a detailed zoomed view of the gap region"""
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18, 14))
@@ -822,9 +821,19 @@ class GapApp:
         self.preview.configure(image=tkimg)
         self.preview.image = tkimg
 
+        # Restore the preview to grid layout (in case it was hidden after previous analysis)
+        self.preview.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+        self.tree.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+        
+        # Clear previous analysis results
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        self.status_label.config(text="")
+
     def capture_photo(self):
         """Capture photo from camera"""
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(1)
         
         if not cap.isOpened():
             messagebox.showerror("Error", "Could not access camera. Make sure camera is connected.")
